@@ -1,8 +1,14 @@
 PLANTUML_URL = https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+GRAPHVIZ := $(shell command -v dot 2> /dev/null)
 DIAGRAMS_SRC := $(wildcard */docs/diagrams/*.pu */diagrams/*.pu)
 DIAGRAMS_PNG := $(addsuffix .png, $(basename $(DIAGRAMS_SRC)))
 
-png: plantuml.jar $(DIAGRAMS_PNG)
+png: graphviz plantuml.jar $(DIAGRAMS_PNG)
+
+graphviz:
+ifndef GRAPHVIZ
+	$(error "please install graphviz: brew install graphviz")
+endif
 
 plantuml.jar:
 	curl -sSfL $(PLANTUML_URL) -o plantuml.jar
@@ -18,4 +24,4 @@ plantuml.jar:
 clean:
 	rm -rf plantuml.jar $(DIAGRAMS_PNG)
 
-.PHONY: clean png
+.PHONY: clean png graphviz
