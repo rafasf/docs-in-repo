@@ -1,0 +1,15 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+'Documentation: https://github.com/plantuml-stdlib/C4-PlantUML
+
+Person(user, "Customer", "People that need products")
+Container(client, "Checkout web", "react", "The main interface that the customer interacts with")
+Container(server, "Checkout web server", "java/springboot", "Serves tailored checkout web experience")
+ContainerDb(db, "Database", "postgresql", "Holds product, order and invoice information")
+
+Rel(user, client, "Uses", "https")
+Rel(client, server, "Uses", "https")
+Rel_R(server, db, "Reads/Writes")
+
+@enduml

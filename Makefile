@@ -14,7 +14,7 @@ plantuml.jar:
 	@curl -sSfL $(PLANTUML_URL) -o plantuml.jar
 
 $(DIAGRAMS_PNG): $(DIAGRAMS_SRC)
-	@java -jar plantuml.jar -config ./plantuml.cfg -tpng $^
+	@java -jar plantuml.jar -tpng $^
 
 clean:
 	rm -rf plantuml.jar $(PNGS)
